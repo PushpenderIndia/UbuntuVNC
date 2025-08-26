@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ubuntu-vnc:
+    build: .
+    container_name: ubuntu-vnc-container
+    ports:
+      - "5901:5901"  # VNC port
+      - "6080:6080"  # NoVNC web interface port
+    volumes:
+      - ./shared:/shared  # Shared folder
+    environment:
+      - DISPLAY=:1
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+volumes:
+  shared-data:
+    driver: local
